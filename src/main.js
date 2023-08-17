@@ -6,6 +6,12 @@ import Home from "./components/Home/Home.Component.vue";
 import Blog from "./components/Blog/Blog.Component.vue";
 import Contact from "./components/Contact/Contact.Component.vue";
 
+// vue-fontawesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faFacebook, faXTwitter, faLinkedin, faYoutube } from '@fortawesome/free-brands-svg-icons';
+library.add(faFacebook, faXTwitter, faLinkedin, faYoutube);
+
 const routes = [
     {
         path: "/",
@@ -26,4 +32,4 @@ const router = createRouter({
     routes
 });
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
