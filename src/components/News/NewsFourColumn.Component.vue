@@ -118,6 +118,21 @@ export default {
       cat: "lifestyle",
     };
   },
-  methods: {},
+  methods: {
+    newsDataFetch: async (cat) => {
+      const date = new Date();
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      const today = `${year}-${month}-${day}`;
+      console.log("today date - " + today);
+      const response = await fetch(
+        `https://newsapi.org/v2/everything?q=${cat}&from=${today}&sortBy=popularity&apiKey=c9006872cc8a4c9c923fc99a3d4d4a7c`
+      );
+      const news = await response.json();
+      console.log(response);
+      console.log(news);
+    },
+  },
 };
 </script>
