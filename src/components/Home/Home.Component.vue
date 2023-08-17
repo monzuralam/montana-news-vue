@@ -1,7 +1,9 @@
 <template>
+  <TopAdvertisement />
   <h1>{{ title }}</h1>
 </template>
 <script>
+import TopAdvertisement from "../Advertisement/TopAdvertisement.Component.vue";
 export default {
   data() {
     return {
@@ -9,5 +11,6 @@ export default {
     };
   },
   methods: {},
+  components: { TopAdvertisement },
 };
 </script>
