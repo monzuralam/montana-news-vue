@@ -1,9 +1,9 @@
-<script setup></script>
+<script setup>
+import Header from "./components/Header/Header.Component.vue";
+</script>
 
 <template>
-  <section class="p-4">
-    <h1 class="text-3xl text-center">Hello Vue</h1>
-  </section>
+  <Header />
 </template>
 
 <style scoped></style>
