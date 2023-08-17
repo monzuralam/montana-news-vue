@@ -1,9 +1,10 @@
 <template>
   <TopAdvertisement />
-  <h1>{{ title }}</h1>
+  <NewsFourColumn cat="lifestyle" />
 </template>
 <script>
 import TopAdvertisement from "../Advertisement/TopAdvertisement.Component.vue";
+import NewsFourColumn from "../News/NewsFourColumn.Component.vue";
 export default {
   data() {
     return {
@@ -11,6 +12,6 @@ export default {
     };
   },
   methods: {},
-  components: { TopAdvertisement },
+  components: { TopAdvertisement, NewsFourColumn },
 };
 </script>
