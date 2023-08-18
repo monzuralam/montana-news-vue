@@ -110,8 +110,12 @@
       </div>
     </div>
   </section>
-  <p v-for="post in articles">{{ post }}</p>
-  {{ articles }}
+  <p v-for="post in articles">{{ post.title }}</p>
+  <hr />
+  <pre>
+    {{ articles }}
+  </pre>
+  <hr />
 </template>
 <script>
 export default {
@@ -125,21 +129,17 @@ export default {
     };
   },
   mounted() {
-    this.fetch(this.category, this.currentDate());
+    console.log("mounted");
   },
   methods: {
-    fetch: async (category, date) => {
-      try {
-        const response = await fetch(
-          `https://newsapi.org/v2/everything?q=${category}&to=${date}&sortBy=popularity&apiKey=c9006872cc8a4c9c923fc99a3d4d4a7c`
-        );
-        const data = await response.json();
-        // this.articles = data.articles;
-        console.log("Articles " + articles);
-      } catch (error) {
-        console.error("Something Wrong! Please try again." + error);
-      }
+    fetchdata(category, date) {
+      return fetch(
+        `https://newsapi.org/v2/everything?q=${category}&to=${date}&sortBy=popularity&apiKey=c9006872cc8a4c9c923fc99a3d4d4a7c`
+      )
+        .then((response) => response.json())
+        .then((data) => (this.articles = data.articles));
     },
+
     currentDate: () => {
       const date = new Date();
       const day = date.getDate();
@@ -148,6 +148,9 @@ export default {
       const today = `${year}-${month}-${day}`;
       return today;
     },
+  },
+  async created() {
+    this.fetchdata(this.category, this.currentDate());
   },
 };
 </script>
