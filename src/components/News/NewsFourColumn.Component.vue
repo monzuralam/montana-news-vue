@@ -10,120 +10,38 @@
         <!-- single news item start here -->
         <div
           class="relative news-item md:border-r sm:border-r-0 last:border-r-0"
+          v-for="post in articles"
         >
-          <router-link to="#">
+          <a :href="post.url" rel="nofollow">
             <div class="news-image">
               <img
-                src="https://images.prothomalo.com/prothomalo-bangla%2F2023-08%2F9c1073ec-192b-4066-bae9-6a0a9c4bbb53%2FKBRH8042.JPG?rect=0%2C0%2C8192%2C5461&auto=format%2Ccompress&fmt=webp&format=webp&w=300&dpr=1.0"
+                :src="post.urlToImage"
                 alt="image"
                 class="max-w-full"
               />
             </div>
             <h3 class="text-2xl font-light leading-6 my-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi,
-              dolor.
+              {{ titleLimit(post.title) }}
             </h3>
             <p class="text-base font-light leading-6 mb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              officia fugit exercitationem modi alias impedit, dolorem est
-              incidunt voluptatum quasi?
+              {{ post.description }}
             </p>
-            <p class="text-sm font-light leading-6 mb-3">1 Hour Ago</p>
-          </router-link>
-        </div>
-        <!-- single news item stop here -->
-        <!-- single news item start here -->
-        <div
-          class="relative news-item md:border-r sm:border-r-0 last:border-r-0"
-        >
-          <router-link to="#">
-            <div class="news-image">
-              <img
-                src="https://images.prothomalo.com/prothomalo-bangla%2F2023-08%2F9c1073ec-192b-4066-bae9-6a0a9c4bbb53%2FKBRH8042.JPG?rect=0%2C0%2C8192%2C5461&auto=format%2Ccompress&fmt=webp&format=webp&w=300&dpr=1.0"
-                alt="image"
-                class="max-w-full"
-              />
-            </div>
-            <h3 class="text-2xl font-light leading-6 my-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi,
-              dolor.
-            </h3>
-            <p class="text-base font-light leading-6 mb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              officia fugit exercitationem modi alias impedit, dolorem est
-              incidunt voluptatum quasi?
-            </p>
-            <p class="text-sm font-light leading-6 mb-3">1 Hour Ago</p>
-          </router-link>
-        </div>
-        <!-- single news item stop here -->
-        <!-- single news item start here -->
-        <div
-          class="relative news-item md:border-r sm:border-r-0last:border-r-0"
-        >
-          <router-link to="#">
-            <div class="news-image">
-              <img
-                src="https://images.prothomalo.com/prothomalo-bangla%2F2023-08%2F9c1073ec-192b-4066-bae9-6a0a9c4bbb53%2FKBRH8042.JPG?rect=0%2C0%2C8192%2C5461&auto=format%2Ccompress&fmt=webp&format=webp&w=300&dpr=1.0"
-                alt="image"
-                class="max-w-full"
-              />
-            </div>
-            <h3 class="text-2xl font-light leading-6 my-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi,
-              dolor.
-            </h3>
-            <p class="text-base font-light leading-6 mb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              officia fugit exercitationem modi alias impedit, dolorem est
-              incidunt voluptatum quasi?
-            </p>
-            <p class="text-sm font-light leading-6 mb-3">1 Hour Ago</p>
-          </router-link>
-        </div>
-        <!-- single news item stop here -->
-        <!-- single news item start here -->
-        <div
-          class="relative news-item md:border-r sm:border-r-0 last:border-r-0"
-        >
-          <router-link to="#">
-            <div class="news-image">
-              <img
-                src="https://images.prothomalo.com/prothomalo-bangla%2F2023-08%2F9c1073ec-192b-4066-bae9-6a0a9c4bbb53%2FKBRH8042.JPG?rect=0%2C0%2C8192%2C5461&auto=format%2Ccompress&fmt=webp&format=webp&w=300&dpr=1.0"
-                alt="image"
-                class="max-w-full"
-              />
-            </div>
-            <h3 class="text-2xl font-light leading-6 my-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi,
-              dolor.
-            </h3>
-            <p class="text-base font-light leading-6 mb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              officia fugit exercitationem modi alias impedit, dolorem est
-              incidunt voluptatum quasi?
-            </p>
-            <p class="text-sm font-light leading-6 mb-3">1 Hour Ago</p>
-          </router-link>
+            <p class="text-sm font-light leading-6 mb-3">{{ post.author }}</p>
+          </a>
         </div>
         <!-- single news item stop here -->
       </div>
     </div>
   </section>
-  <p v-for="post in articles">{{ post.title }}</p>
-  <hr />
-  <pre>
-    {{ articles }}
-  </pre>
-  <hr />
 </template>
 <script>
 export default {
   name: "NewsFourColumn",
-  props: ["cat"],
+  props: ["cat", "limit"],
   setup(props) {},
   data() {
     return {
+      limit: this.limit,
       category: this.cat,
       articles: [],
     };
@@ -132,9 +50,9 @@ export default {
     console.log("mounted");
   },
   methods: {
-    fetchdata(category, date) {
+    fetchdata(category, date, limit="4") {
       return fetch(
-        `https://newsapi.org/v2/everything?q=${category}&to=${date}&sortBy=popularity&apiKey=c9006872cc8a4c9c923fc99a3d4d4a7c`
+        `https://newsapi.org/v2/everything?q=${category}&to=${date}&pageSize=${limit}&sortBy=popularity&apiKey=c9006872cc8a4c9c923fc99a3d4d4a7c`
       )
         .then((response) => response.json())
         .then((data) => (this.articles = data.articles));
@@ -148,9 +66,15 @@ export default {
       const today = `${year}-${month}-${day}`;
       return today;
     },
+    titleLimit: (title) => {
+      if( title.length >= 50 ){
+        return title.substring(0, 50)+'...';
+      }
+      return title;
+    }
   },
   async created() {
-    this.fetchdata(this.category, this.currentDate());
+    this.fetchdata(this.category, this.currentDate(), this.limit);
   },
 };
 </script>
