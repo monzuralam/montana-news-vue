@@ -1,6 +1,6 @@
 <template>
   <TopAdvertisement />
-  <NewsFourColumn cat="lifestyle" />
+  <NewsFourColumn cat="lifestyle" limit="4" />
 </template>
 <script>
 import TopAdvertisement from "../Advertisement/TopAdvertisement.Component.vue";
