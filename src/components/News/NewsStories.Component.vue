@@ -128,6 +128,9 @@
                         </div>
                     </a>
                     <!-- stories item stop here -->
+                    <!-- mini advertisement start here -->
+                    <MiniAdvertisement src="" href="" paddingTop="5" />
+                    <!-- mini advertisement stop here -->
                 </div>
                 <!-- center area stop here -->
                 <!-- right area start here -->
@@ -151,6 +154,7 @@
     <!-- news stories section stop here -->
 </template>
 <script>
+import MiniAdvertisement from "../Advertisement/MiniAdvertisement.Component.vue";
 export default {
     name: "NewsStories",
     props: [],
@@ -158,5 +162,6 @@ export default {
         return {};
     },
     methods: {},
+    components: { MiniAdvertisement },
 };
 </script>
